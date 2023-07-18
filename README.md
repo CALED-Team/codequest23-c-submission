@@ -7,7 +7,7 @@ Use this repo as starting point for your C++ submissions to CodeQuest 23.
 To compile and test on your local, either compile with gcc:
 
 ```
-gcc -o game.out main.c game.c cjson/cJSON.c
+gcc -o src/game.out src/main.c src/game.c src/cjson/cJSON.c
 ```
 
 and run:
