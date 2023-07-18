@@ -9,6 +9,7 @@
 
 typedef struct {
     char tankId[100];           // Your client's tank id
+    char enemyTankId[100];      // Your opponent's tank id
     cJSON* currentTurnMessage;  // The last received message (updated in readNextTurnData)
     cJSON* objects;             // All the objects with the same format as described in the doc. The key will be object id and value will be the object itself.
     double width;               // The width of the map.

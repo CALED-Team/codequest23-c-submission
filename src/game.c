@@ -47,13 +47,13 @@ void Game_init(Game* game) {
         exit(EXIT_FAILURE);
     }
 
-    cJSON* yourTankId = cJSON_GetObjectItemCaseSensitive(firstMessage, "message");
-    if (!cJSON_IsObject(yourTankId)) {
+    cJSON* tankIdsMessage = cJSON_GetObjectItemCaseSensitive(firstMessage, "message");
+    if (!cJSON_IsObject(tankIdsMessage)) {
         fprintf(stderr, "Error: Invalid JSON format - missing 'message' field in the first message.\n");
         exit(EXIT_FAILURE);
     }
 
-    cJSON* tankIdJson = cJSON_GetObjectItemCaseSensitive(yourTankId, "your-tank-id");
+    cJSON* tankIdJson = cJSON_GetObjectItemCaseSensitive(tankIdsMessage, "your-tank-id");
     if (!cJSON_IsString(tankIdJson)) {
         fprintf(stderr, "Error: Invalid JSON format - 'your-tank-id' field should be a string.\n");
         exit(EXIT_FAILURE);
@@ -61,9 +61,17 @@ void Game_init(Game* game) {
 
     strcpy(game->tankId, tankIdJson->valuestring);
 
+    cJSON* enemyTankIdJson = cJSON_GetObjectItemCaseSensitive(tankIdsMessage, "enemy-tank-id");
+    if (!cJSON_IsString(enemyTankIdJson)) {
+        fprintf(stderr, "Error: Invalid JSON format - 'enemy-tank-id' field should be a string.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    strcpy(game->enemyTankId, enemyTankIdJson->valuestring);
+
     // Now start reading the map info until the END_INIT signal is received.
     cJSON* nextMessage = readAndParseJSON();
-    while (cJSON_IsString(nextMessage) && strcmp(nextMessage->valuestring, "END_INIT") != 0) {
+    while (!cJSON_IsString(nextMessage) || strcmp(nextMessage->valuestring, "END_INIT") != 0) {
         // Get the updated_objects part
         cJSON* updatedObjects = cJSON_GetObjectItemCaseSensitive(nextMessage, "message");
         if (!cJSON_IsObject(updatedObjects)) {
@@ -143,8 +151,7 @@ int readNextTurnData(Game* game) {
     }
 
     // Return 0 if the game is over
-    cJSON* msgValue = cJSON_GetObjectItemCaseSensitive(game->currentTurnMessage, "message");
-    if (cJSON_IsString(msgValue) && strcmp(msgValue->valuestring, "END") == 0) {
+    if (cJSON_IsString(game->currentTurnMessage) && strcmp(game->currentTurnMessage->valuestring, "END") == 0) {
         cJSON_Delete(game->currentTurnMessage);
         game->currentTurnMessage = NULL;
         return 0;
