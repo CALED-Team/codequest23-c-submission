@@ -1,4 +1,4 @@
-# CodeQuest 23 C++ Submission Template
+# CodeQuest 23 C Submission Template
 
 Use this repo as starting point for your C++ submissions to CodeQuest 23.
 
@@ -7,7 +7,7 @@ Use this repo as starting point for your C++ submissions to CodeQuest 23.
 To compile and test on your local, either compile with gcc:
 
 ```
-g++ src/main.cpp -o game.out -std=c++11
+gcc -o game.out main.c game.c cjson/cJSON.c
 ```
 
 and run:

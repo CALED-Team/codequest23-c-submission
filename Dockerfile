@@ -9,7 +9,7 @@ RUN mkdir -p /codequest
 # Copy your files
 COPY src /codequest/src
 
-RUN cd /codequest/src && g++ main.cpp -o game.out -std=c++11
+RUN cd /codequest/src && gcc -o game.out main.c game.c cjson/cJSON.c
 
 
 # Copy run.sh
