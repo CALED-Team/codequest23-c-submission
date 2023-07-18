@@ -3,12 +3,13 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-int TANK = 1;
-int BULLET = 2;
-int WALL = 3;
-int DESTRUCTIBLE_WALL = 4;
-int BOUNDARY = 5;
-int CLOSING_BOUNDARY = 6;
-int POWERUP = 7;
+// Define the constants as macros (avoid global variables)
+#define TANK 1
+#define BULLET 2
+#define WALL 3
+#define DESTRUCTIBLE_WALL 4
+#define BOUNDARY 5
+#define CLOSING_BOUNDARY 6
+#define POWERUP 7
 
-#endif  // TYPES_H
+#endif // TYPES_H
