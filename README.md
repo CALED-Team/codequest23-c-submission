@@ -27,7 +27,7 @@ docker run -it my-submission:latest
 
 All functions in the code are commented so I would recommend checking the comments first.
 
-Most logic of the game is inside the `Game` class. The input is already read and parsed for you. You can, if you need, change the
+Most of the logic of the game is inside `game.c` file. The input is already read and parsed for you. You can, if you need, change the
 input reading logic.
 
-The main part of the code you should change is `Game::respondToTurn`. Use the `objects` attribute to process what's happening in the game and respond with an action.
+The main part of the code you should change is `respondToTurn` function. Use the `game->objects` (and `game->currentTurnMessage` if you need) attributes to process what's happening in the game and respond with an action.
